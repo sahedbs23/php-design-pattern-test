@@ -24,7 +24,7 @@ class CommissionCalculator extends Controller
     public function calculate(Request $request)
     {
         $File = $request->file('file');
-        $arrResult = $this->processFile($File);
+        $arrResult = self::processFile($File);
         $col = collect($arrResult);
         OperationData::put($col);
         foreach ($col as $operation):
