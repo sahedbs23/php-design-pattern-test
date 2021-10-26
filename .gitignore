@@ -1,0 +1,17 @@
+.idea
+
+JOA-DEV/node_modules
+JOA-DEV/public/hot
+JOA-DEV/public/storage
+JOA-DEV/storage/*.key
+JOA-DEV/vendor
+JOA-DEV/.env
+JOA-DEV/.env.backup
+JOA-DEV/.phpunit.result.cache
+JOA-DEV/Homestead.json
+JOA-DEV/Homestead.yaml
+JOA-DEV/npm-debug.log
+JOA-DEV/yarn-error.log
+fontend/node_modules
+
+JOA-DEV/public/core

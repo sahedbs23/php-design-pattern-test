@@ -1,0 +1,73 @@
+version: '3.3'
+services:
+
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: HIRA
+    restart: always
+    tty: true
+    environment:
+      SERVICE_NAME: HIRA
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+       - ./HIRA-DEV:/var/www
+       - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - hira-network
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: hira-webserver
+    restart: always
+    tty: true
+    ports:
+      - "8888:80"
+        #  - "4431:443"
+    volumes:
+      - ./HIRA-DEV:/var/www
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - hira-network
+
+  #MySQL Service
+#  db:
+#    image: mysql:8.0.17
+#    container_name: hira-db
+#    command: --default-authentication-plugin=mysql_native_password
+#    restart: always
+#    tty: true
+#    ports:
+#      - "3307:3306"
+#    environment:
+#      MYSQL_DATABASE: hira
+#      MYSQL_ROOT_PASSWORD: 123456@hira
+#      SERVICE_TAGS: dev
+#      SERVICE_NAME: mysql
+#    volumes:
+#      - joadata:/var/lib/mysql
+#    networks:
+#      - hira-network
+
+  #adminer for db access
+#  adminer:
+#    image: adminer:latest
+#    restart: unless-stopped
+#    container_name: hira-adminer
+#    ports:
+#      - 8800:8080
+
+#Docker Networks
+networks:
+  hira-network:
+    driver: bridge
+
+#Volumes
+#volumes:
+#  joadata:
+#    driver: local
+
